@@ -23,8 +23,8 @@ const resolveModule = (resolveFn, filePath) => {
 }
 
 module.exports = {
-    // entry path of webpack.config
-    entry: resolveModule(resolveApp(rootPath, 'src/index')),
+    // entry path of webpack.base.config
+    entry: resolveModule(resolveApp, 'src/index'),
     // index.html path
     appHtml: resolveApp('src/index.html'),
     rootPath: resolveApp('.'),

@@ -1,7 +1,7 @@
 const path = require('path')
 const { distPath, appPath } = require('../conf/paths')
 
-// webpack.config output
+// webpack.base.config output
 module.exports = (isProductionEnv, isDevelopmentEnv) => ({
     path: distPath,
     pathinfo: isDevelopmentEnv,

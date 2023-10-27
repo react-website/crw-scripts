@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-// 获取html-webpack.config-plugin的options
+// 获取html-webpack.base.config-plugin的options
 const getHtmlWebpackPluginOptions = (productionEnv) => {
     const opts = {
         inject: true,
