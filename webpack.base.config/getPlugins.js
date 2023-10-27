@@ -1,10 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const { appHtml } = require('../conf/paths')
 // 获取html-webpack.base.config-plugin的options
 const getHtmlWebpackPluginOptions = (productionEnv) => {
     const opts = {
         inject: true,
-        template: '',
+        template: appHtml,
     }
 
     if (productionEnv) {

@@ -6,15 +6,14 @@
  */
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
+const WebpackDevServer = require('webpack-dev-server')
 const getWebpackBaseConfig = require('../webpack.base.config')
 const getDevServer = require('../webpack.base.config/getDevServer')
 const { createCompiler } = require('../crw-utils')
 
-const getWebpackConf = () => {
-    const webpackBaseConf = getWebpackBaseConfig('development')
-    const devServer = getDevServer()
+const webpackBaseConf = getWebpackBaseConfig('development')
+console.log(webpackBaseConf)
 
-    return merge(webpackBaseConf, devServer)
-}
+const devServer = new WebpackDevServer(getDevServer(), createCompiler(webpack, webpackBaseConf))
 
-createCompiler(webpack, getWebpackConf())
+devServer.start()

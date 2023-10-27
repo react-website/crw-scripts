@@ -7,10 +7,12 @@
 const chalk = require('chalk')
 
 module.exports = (webpack, webpackConf) => {
+    let compiler
     try {
-        webpack(webpackConf)
+        compiler = webpack(webpackConf)
     } catch (e) {
         console.error(chalk.red('Webpack failed to compile'))
         process.exit(1)
     }
+    return compiler
 }

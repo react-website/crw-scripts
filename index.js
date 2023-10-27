@@ -3,7 +3,6 @@ const spawn = require('cross-spawn')
 const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
-// const webpackConfig = require('./webpack.base.config')
 
 /**
  * getScripts 获取所有的script
@@ -50,6 +49,6 @@ if (scripts.includes(cmd)) {
     if (result.signal) process.exit(1)
     process.exit(result.status)
 } else {
-    console.error(`Unknow script: ${chalk.red(cmd)}.`)
+    console.error(`Unknown script: ${chalk.red(cmd)}.`)
     console.log(`Scripts of crw-script: ${chalk.green(scripts.join(' '))}.`)
 }

@@ -18,15 +18,17 @@ const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions) => {
     loaders.push({ loader: 'css-loader', options: cssOptions })
     loaders.push({
         loader: 'postcss-loader',
-        postcssOptions: {
-            plugins: [
-                'postcss-preset-env', {
-                    stage: 3,
-                    autoprefixer: {
-                        flexbox: 'no-2009',
+        options: {
+            postcssOptions: {
+                plugins: [
+                    'postcss-preset-env', {
+                        stage: 3,
+                        autoprefixer: {
+                            flexbox: 'no-2009',
+                        },
                     },
-                },
-            ],
+                ],
+            },
         },
     })
 
