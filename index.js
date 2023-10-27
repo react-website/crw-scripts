@@ -11,7 +11,7 @@ const chalk = require('chalk')
  */
 const getScripts = () => {
     const scripts = []
-    const scriptDir = path.resolve('./scripts')
+    const scriptDir = path.resolve(__dirname, './scripts')
     const filePaths = fs.readdirSync(scriptDir)
 
     filePaths.forEach((filePath) => {
