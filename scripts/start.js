@@ -5,7 +5,6 @@
  * @time: 2023/10/27
  */
 const webpack = require('webpack')
-const { merge } = require('webpack-merge')
 const WebpackDevServer = require('webpack-dev-server')
 const getWebpackBaseConfig = require('../webpack.base.config')
 const getDevServer = require('../webpack.base.config/getDevServer')
