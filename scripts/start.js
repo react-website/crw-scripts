@@ -11,7 +11,6 @@ const getDevServer = require('../webpack.base.config/getDevServer')
 const { createCompiler } = require('../crw-utils')
 
 const webpackBaseConf = getWebpackBaseConfig('development')
-console.log(webpackBaseConf)
 
 const devServer = new WebpackDevServer(getDevServer(), createCompiler(webpack, webpackBaseConf))
 

@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const { appPath } = require('../conf/paths')
 
-const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions) => {
+const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions, preLoader) => {
     const loaders = []
     if (isDevelopmentEnv) loaders.push({ loader: 'style-loader' })
 
@@ -15,22 +15,24 @@ const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions) => {
         })
     }
 
-    loaders.push({ loader: 'css-loader', options: cssOptions })
-    loaders.push({
-        loader: 'postcss-loader',
-        options: {
-            postcssOptions: {
-                plugins: [
-                    'postcss-preset-env', {
-                        stage: 3,
-                        autoprefixer: {
-                            flexbox: 'no-2009',
-                        },
-                    },
-                ],
+    loaders.push(
+        { loader: 'css-loader', options: cssOptions },
+        { loader: 'postcss-loader' },
+    )
+
+    if (preLoader) {
+        loaders.push(
+            {
+                loader: 'resolve-url-loader',
+                options: {
+                    root: appPath,
+                },
             },
-        },
-    })
+            {
+                loader: preLoader,
+            },
+        )
+    }
 
     return loaders
 }
@@ -43,6 +45,15 @@ module.exports = (isProductionEnv, isDevelopmentEnv) => ({
     },
     rules: [
         {
+            test: /\.(js|jsx|ts|tsx)$/,
+            use: [
+                { loader: 'babel-loader' },
+                { loader: 'eslint-loader' },
+            ],
+            include: appPath,
+            exclude: /node_module/,
+        },
+        {
             test: /\.css$/,
             include: appPath,
             exclude: /node_module/,
@@ -53,6 +64,32 @@ module.exports = (isProductionEnv, isDevelopmentEnv) => ({
                     mode: 'icss',
                 },
             }),
+            sideEffects: true,
+        },
+        {
+            test: /\.s[a|c]ss$/,
+            include: appPath,
+            exclude: /node_module/,
+            use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                importLoaders: 3,
+                sourceMap: isProductionEnv,
+                modules: {
+                    mode: 'icss',
+                },
+            }, 'sass-loader'),
+            sideEffects: true,
+        },
+        {
+            test: /\.less$/,
+            include: appPath,
+            use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                importLoaders: 3,
+                sourceMap: isProductionEnv,
+                modules: {
+                    mode: 'icss',
+                },
+            }, 'less-loader'),
+            sideEffects: true,
         },
     ],
 })
