@@ -1,9 +1,13 @@
+/**
+ * @name: project-path
+ * @description: 项目路径
+ * @author: qq2575896094
+ * @time: 2024/1/8
+ */
 const fs = require('fs')
 const path = require('path')
 
 const rootPath = fs.realpathSync(process.cwd())
-
-console.log('rootPath', rootPath)
 
 const extensions = [
     'js',

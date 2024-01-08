@@ -5,7 +5,7 @@
  * @time: 2023/10/27
  */
 const createCompiler = require('./createCompiler')
-const getProxy = require('./getProxy')
+const getProxy = require('./getDevServerConf')
 
 module.exports = {
     getProxy,

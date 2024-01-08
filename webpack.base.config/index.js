@@ -1,8 +1,20 @@
-const paths = require('../conf/paths')
+/**
+ * @name: index
+ * @description: 获取webpack配置
+ * @author: qq2575896094
+ * @time: 2024/1/8
+ */
+
+const dotenv = require('dotenv')
+const path = require('path')
+const getEntry = require('./getEntry')
 const getOutput = require('./getOutput')
 const getResolve = require('./getResolve')
 const getModule = require('./getModule')
 const getPlugins = require('./getPlugins')
+const { rootPath } = require('./project-path')
+
+dotenv.config({ path: path.resolve(rootPath, '.env') })
 
 module.exports = (webpackEnv) => {
     const isProductionEnv = webpackEnv === 'production'
@@ -19,11 +31,11 @@ module.exports = (webpackEnv) => {
         bail: isProductionEnv,
         // 只在发生错误或有警告时输出
         stats: 'errors-warnings',
-        entry: paths.entry,
+        entry: getEntry(),
         output: getOutput(isProductionEnv, isDevelopmentEnv),
         devtool,
         resolve: getResolve(),
         module: getModule(isProductionEnv, isDevelopmentEnv),
-        plugins: getPlugins(),
+        plugins: getPlugins(isProductionEnv),
     }
 }

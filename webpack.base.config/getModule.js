@@ -1,6 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const { appPath } = require('../conf/paths')
+const { appPath } = require('./project-path')
+
+const { IMAGE_INLINE_SIZE_LIMIT = 1000 } = process.env
 
 const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions, preLoader) => {
     const loaders = []
@@ -46,10 +48,7 @@ module.exports = (isProductionEnv, isDevelopmentEnv) => ({
     rules: [
         {
             test: /\.(js|jsx|ts|tsx)$/,
-            use: [
-                { loader: 'babel-loader' },
-                { loader: 'eslint-loader' },
-            ],
+            use: [{ loader: 'babel-loader' }],
             include: appPath,
             exclude: /node_module/,
         },
@@ -90,6 +89,29 @@ module.exports = (isProductionEnv, isDevelopmentEnv) => ({
                 },
             }, 'less-loader'),
             sideEffects: true,
+        },
+        {
+            test: /\.(bmp|gif|jpeg|jpg|png)$/,
+            type: 'asset',
+            parser: {
+                dataUrlCondition: {
+                    maxSize: IMAGE_INLINE_SIZE_LIMIT,
+                },
+            },
+        },
+        {
+            test: /\.avif/,
+            type: 'asset',
+            mimetype: 'images/avif',
+            parser: {
+                dataUrlCondition: {
+                    maxSize: IMAGE_INLINE_SIZE_LIMIT,
+                },
+            },
+        },
+        {
+            exclude: /\.(js|mjs|jsx|ts|tsx|html|json)$/,
+            type: 'asset/resource',
         },
     ],
 })

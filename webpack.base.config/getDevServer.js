@@ -5,28 +5,25 @@
  * @time: 2023/10/27
  */
 const ip = require('ip')
-const { distPath } = require('../conf/paths')
-const { getProxy } = require('../crw-utils')
+const { rootPath, distPath } = require('./project-path')
+const getDevServerConf = require('../crw-utils/getDevServerConf')
 
-module.exports = () => {
-    const host = ip.address()
-    const proxy = getProxy()
+const { port, proxy = {} } = getDevServerConf(rootPath)
 
-    return {
-        host,
-        port: 8899,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*',
-            'Access-Control-Allow-Headers': '*',
-        },
-        open: true,
-        hot: true,
-        static: {
-            directory: distPath,
-        },
-        historyApiFallback: true,
-        compress: true,
-        proxy,
-    }
-}
+module.exports = () => ({
+    host: ip.address(),
+    port,
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+    },
+    open: true,
+    hot: true,
+    static: {
+        directory: distPath,
+    },
+    historyApiFallback: true,
+    compress: true,
+    proxy,
+})
