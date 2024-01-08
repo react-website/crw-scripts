@@ -1,6 +1,6 @@
 {
   "name": "crw-scripts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "crw project scripts",
   "bin": {
     "crw-script": "./bin/www"
