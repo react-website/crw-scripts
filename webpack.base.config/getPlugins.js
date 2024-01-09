@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const EslintWebpackPlugin = require('eslint-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
-const path = require('path')
 const Webpackbar = require('webpackbar')
 const { appHtml, appPath } = require('./project-path')
 
