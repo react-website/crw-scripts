@@ -47,71 +47,75 @@ module.exports = (isProductionEnv, isDevelopmentEnv) => ({
     },
     rules: [
         {
-            test: /\.(js|jsx|ts|tsx)$/,
-            use: [{ loader: 'babel-loader' }],
-            include: appPath,
-            exclude: /node_module/,
-        },
-        {
-            test: /\.css$/,
-            include: appPath,
-            exclude: /node_module/,
-            use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
-                importLoaders: 1,
-                sourceMap: isProductionEnv,
-                modules: {
-                    mode: 'icss',
+            oneOf: [
+                {
+                    test: /\.(js|jsx|ts|tsx)$/,
+                    use: [{ loader: 'babel-loader' }],
+                    include: appPath,
+                    exclude: /node_module/,
                 },
-            }),
-            sideEffects: true,
-        },
-        {
-            test: /\.s[a|c]ss$/,
-            include: appPath,
-            exclude: /node_module/,
-            use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
-                importLoaders: 3,
-                sourceMap: isProductionEnv,
-                modules: {
-                    mode: 'icss',
+                {
+                    test: /\.css$/,
+                    include: appPath,
+                    exclude: /node_module/,
+                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                        importLoaders: 1,
+                        sourceMap: isProductionEnv,
+                        modules: {
+                            mode: 'icss',
+                        },
+                    }),
+                    sideEffects: true,
                 },
-            }, 'sass-loader'),
-            sideEffects: true,
-        },
-        {
-            test: /\.less$/,
-            include: appPath,
-            use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
-                importLoaders: 3,
-                sourceMap: isProductionEnv,
-                modules: {
-                    mode: 'icss',
+                {
+                    test: /\.s[a|c]ss$/,
+                    include: appPath,
+                    exclude: /node_module/,
+                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                        importLoaders: 3,
+                        sourceMap: isProductionEnv,
+                        modules: {
+                            mode: 'icss',
+                        },
+                    }, 'sass-loader'),
+                    sideEffects: true,
                 },
-            }, 'less-loader'),
-            sideEffects: true,
-        },
-        {
-            test: /\.(bmp|gif|jpeg|jpg|png)$/,
-            type: 'asset',
-            parser: {
-                dataUrlCondition: {
-                    maxSize: IMAGE_INLINE_SIZE_LIMIT,
+                {
+                    test: /\.less$/,
+                    include: appPath,
+                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                        importLoaders: 3,
+                        sourceMap: isProductionEnv,
+                        modules: {
+                            mode: 'icss',
+                        },
+                    }, 'less-loader'),
+                    sideEffects: true,
                 },
-            },
-        },
-        {
-            test: /\.avif/,
-            type: 'asset',
-            mimetype: 'images/avif',
-            parser: {
-                dataUrlCondition: {
-                    maxSize: IMAGE_INLINE_SIZE_LIMIT,
+                {
+                    test: /\.(bmp|gif|jpeg|jpg|png)$/,
+                    type: 'asset',
+                    parser: {
+                        dataUrlCondition: {
+                            maxSize: IMAGE_INLINE_SIZE_LIMIT,
+                        },
+                    },
                 },
-            },
-        },
-        {
-            exclude: /\.(js|mjs|jsx|ts|tsx|html|json)$/,
-            type: 'asset/resource',
+                {
+                    test: /\.avif/,
+                    type: 'asset',
+                    mimetype: 'images/avif',
+                    parser: {
+                        dataUrlCondition: {
+                            maxSize: IMAGE_INLINE_SIZE_LIMIT,
+                        },
+                    },
+                },
+                {
+                    exclude: /\.(js|mjs|jsx|ts|tsx|html|json)$/,
+                    type: 'asset/resource',
+                },
+            ],
         },
     ],
 })

@@ -12,6 +12,7 @@ const getOutput = require('./getOutput')
 const getResolve = require('./getResolve')
 const getModule = require('./getModule')
 const getPlugins = require('./getPlugins')
+const getOptimization = require('./getOptimization')
 const { rootPath } = require('./project-path')
 
 dotenv.config({ path: path.resolve(rootPath, '.env') })
@@ -37,5 +38,6 @@ module.exports = (webpackEnv) => {
         resolve: getResolve(),
         module: getModule(isProductionEnv, isDevelopmentEnv),
         plugins: getPlugins(isProductionEnv),
+        optimization: getOptimization(isProductionEnv),
     }
 }

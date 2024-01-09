@@ -3,6 +3,7 @@ const EslintWebpackPlugin = require('eslint-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const Webpackbar = require('webpackbar')
+const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 const { appHtml, appPath } = require('./project-path')
 
 // 获取html-webpack.base.config-plugin的options
@@ -48,4 +49,11 @@ module.exports = (isProductionEnv) => [
     }),
     // webpack compiled bar
     new Webpackbar(),
+    new StylelintWebpackPlugin({
+        files: ['src/**/*.scss'],
+        extensions: 'scss',
+        failOnError: false,
+        threads: true,
+        fix: true,
+    }),
 ]

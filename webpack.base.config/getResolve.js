@@ -16,6 +16,7 @@ module.exports = () => ({
         '.jsx',
         '.ts',
         '.tsx',
+        '.json',
     ],
     // 别名
     alias: {
