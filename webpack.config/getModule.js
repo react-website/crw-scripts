@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const { IMAGE_INLINE_SIZE_LIMIT = 1000 } = process.env
 
-const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions, preLoader) => {
+const getStyleLoader = (isProductionEnv, isDevelopmentEnv, appPath, cssOptions, preLoader) => {
     const loaders = []
     if (isDevelopmentEnv) loaders.push({ loader: 'style-loader' })
 
@@ -56,7 +56,7 @@ module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
                     test: /\.css$/,
                     include: appPath,
                     exclude: /node_module/,
-                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, appPath, {
                         importLoaders: 1,
                         sourceMap: isProductionEnv,
                         modules: {
@@ -69,7 +69,7 @@ module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
                     test: /\.s[a|c]ss$/,
                     include: appPath,
                     exclude: /node_module/,
-                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, appPath, {
                         importLoaders: 3,
                         sourceMap: isProductionEnv,
                         modules: {
@@ -81,7 +81,7 @@ module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
                 {
                     test: /\.less$/,
                     include: appPath,
-                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, {
+                    use: getStyleLoader(isProductionEnv, isDevelopmentEnv, appPath, {
                         importLoaders: 3,
                         sourceMap: isProductionEnv,
                         modules: {

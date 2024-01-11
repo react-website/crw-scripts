@@ -53,7 +53,7 @@ module.exports = (webpackEnv) => {
         devtool,
         resolve: getResolve(projectConf),
         module: getModule(isProductionEnv, isDevelopmentEnv, appPath),
-        plugins: getPlugins(isProductionEnv, appHtml, appPath),
+        plugins: getPlugins(isProductionEnv, appPath, appHtml),
         optimization: getOptimization(isProductionEnv),
     }
 

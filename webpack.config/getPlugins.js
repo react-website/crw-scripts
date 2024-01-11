@@ -6,7 +6,7 @@ const Webpackbar = require('webpackbar')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 
 // 获取html-webpack.config-plugin的options
-const getHtmlWebpackPluginOptions = (productionEnv, appHtml, appPath) => {
+const getHtmlWebpackPluginOptions = (appHtml) => {
     const { TITLE } = process.env
     return {
         inject: true,
@@ -29,8 +29,8 @@ const getHtmlWebpackPluginOptions = (productionEnv, appHtml, appPath) => {
     }
 }
 
-module.exports = (isProductionEnv) => [
-    new HtmlWebpackPlugin(getHtmlWebpackPluginOptions()),
+module.exports = (isProductionEnv, appPath, appHtml) => [
+    new HtmlWebpackPlugin(getHtmlWebpackPluginOptions(appHtml)),
     new EslintWebpackPlugin({
         context: appPath,
         extensions: ['js', 'jsx', 'ts', 'tsx'],
