@@ -1,8 +1,7 @@
 const path = require('path')
-const { distPath, appPath } = require('./project-path')
 
 // webpack.config output
-module.exports = (isProductionEnv, isDevelopmentEnv) => {
+module.exports = (isProductionEnv, isDevelopmentEnv, distPath, appPath) => {
     const filename = isProductionEnv
         ? 'scripts/[name]-[contenthash:8].js'
         : isDevelopmentEnv && 'scripts/[name].bundle.js'

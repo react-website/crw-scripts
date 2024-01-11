@@ -5,6 +5,4 @@
  * @time: 2024/1/8
  */
 
-const { entry } = require('./project-path')
-
-module.exports = () => entry
+module.exports = (entry) => entry

@@ -4,10 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const Webpackbar = require('webpackbar')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
-const { appHtml, appPath } = require('./project-path')
 
 // 获取html-webpack.config-plugin的options
-const getHtmlWebpackPluginOptions = (productionEnv) => {
+const getHtmlWebpackPluginOptions = (productionEnv, appHtml, appPath) => {
     const { TITLE } = process.env
     return {
         inject: true,

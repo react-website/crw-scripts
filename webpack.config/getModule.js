@@ -1,7 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const { appPath } = require('./project-path')
-
 const { IMAGE_INLINE_SIZE_LIMIT = 1000 } = process.env
 
 const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions, preLoader) => {
@@ -39,7 +37,7 @@ const getStyleLoader = (isProductionEnv, isDevelopmentEnv, cssOptions, preLoader
     return loaders
 }
 
-module.exports = (isProductionEnv, isDevelopmentEnv) => ({
+module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
     parser: {
         javascript: {
             dynamicImportMode: 'lazy', // 'eager' | 'weak' | 'lazy' | 'lazy-once'

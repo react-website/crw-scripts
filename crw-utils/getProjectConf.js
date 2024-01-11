@@ -8,7 +8,26 @@ const { resolve } = require('path')
 const path = require('path')
 const fs = require('fs-extra')
 
-module.exports = (rootPath) => {
+const rootPath = fs.realpathSync(process.cwd())
+
+const extensions = [
+    'js',
+    'jsx',
+    'ts',
+    'tsx',
+]
+
+const resolveApp = (relativePath) => path.resolve(rootPath, relativePath)
+
+// 获取模块路径
+const resolveModule = (resolveFn, filePath) => {
+    const extension = extensions.find((ext) => fs.existsSync(`${filePath}.${ext}`))
+
+    if (extension) return resolveFn(`${filePath}.${extension}`)
+    return resolveFn(`${filePath}.js`)
+}
+
+module.exports = () => {
     let projectConf = {
         port: 8090,
         proxy: {},
@@ -26,5 +45,12 @@ module.exports = (rootPath) => {
     const { PORT } = process.env
     if (PORT) projectConf.port = parseInt(PORT, 10)
 
-    return projectConf
+    return {
+        entryPath: resolveModule(resolveApp, 'src/index'),
+        appHtml: resolveApp('src/index.html'),
+        rootPath: resolveApp('.'),
+        appPath: resolveApp('src'),
+        distPath: resolveApp('dist'),
+        ...projectConf,
+    }
 }

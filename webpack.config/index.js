@@ -8,6 +8,7 @@
 const fs = require('fs-extra')
 const dotenv = require('dotenv')
 const path = require('path')
+const { entry } = require('babel-plugin-react-css-modules/demo/webpack.config')
 const getEntry = require('./getEntry')
 const getOutput = require('./getOutput')
 const getResolve = require('./getResolve')
@@ -16,12 +17,19 @@ const getPlugins = require('./getPlugins')
 const getOptimization = require('./getOptimization')
 const { getProjectConf } = require('../crw-utils')
 const getDevServer = require('./getDevServer')
-const { rootPath, distPath } = require('./project-path')
+
+// 获取project.config.js文件下配置文件
+const {
+    rootPath,
+    entryPath,
+    distPath,
+    appPath,
+    appHtml,
+    ...projectConf
+} = getProjectConf()
 
 // 获取.env配置文件
 dotenv.config({ path: path.resolve(rootPath, '.env') })
-
-// 获取project.config.js文件下配置文件
 
 module.exports = (webpackEnv) => {
     const isProductionEnv = webpackEnv === 'production'
@@ -32,7 +40,6 @@ module.exports = (webpackEnv) => {
 
     const devtool = isProductionEnv ? false : 'cheap-module-source-map'
 
-    const projectConf = getProjectConf(rootPath)
     const devServerConf = getDevServer(distPath, projectConf)
 
     const webpackBaseConf = {
@@ -41,12 +48,12 @@ module.exports = (webpackEnv) => {
         bail: isProductionEnv,
         // 只在发生错误或有警告时输出
         stats: 'errors-warnings',
-        entry: getEntry(),
-        output: getOutput(isProductionEnv, isDevelopmentEnv),
+        entry: getEntry(entryPath),
+        output: getOutput(isProductionEnv, isDevelopmentEnv, distPath, appPath),
         devtool,
         resolve: getResolve(projectConf),
-        module: getModule(isProductionEnv, isDevelopmentEnv),
-        plugins: getPlugins(isProductionEnv),
+        module: getModule(isProductionEnv, isDevelopmentEnv, appPath),
+        plugins: getPlugins(isProductionEnv, appHtml, appPath),
         optimization: getOptimization(isProductionEnv),
     }
 
