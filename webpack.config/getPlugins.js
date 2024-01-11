@@ -6,7 +6,7 @@ const Webpackbar = require('webpackbar')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 const { appHtml, appPath } = require('./project-path')
 
-// 获取html-webpack.base.config-plugin的options
+// 获取html-webpack.config-plugin的options
 const getHtmlWebpackPluginOptions = (productionEnv) => {
     const { TITLE } = process.env
     return {

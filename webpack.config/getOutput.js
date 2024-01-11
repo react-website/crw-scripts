@@ -1,7 +1,7 @@
 const path = require('path')
 const { distPath, appPath } = require('./project-path')
 
-// webpack.base.config output
+// webpack.config output
 module.exports = (isProductionEnv, isDevelopmentEnv) => {
     const filename = isProductionEnv
         ? 'scripts/[name]-[contenthash:8].js'

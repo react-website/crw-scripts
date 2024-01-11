@@ -6,14 +6,15 @@
  */
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const getWebpackBaseConfig = require('../webpack.base.config')
-const getDevServer = require('../webpack.base.config/getDevServer')
+const getWebpackConfig = require('../webpack.config')
 const { createCompiler } = require('../crw-utils')
 
+const { webpackBaseConf, devServerConf } = getWebpackConfig('development')
+
 new WebpackDevServer(
-    getDevServer(),
+    devServerConf,
     createCompiler(
         webpack,
-        getWebpackBaseConfig('development'),
+        webpackBaseConf,
     ),
 ).start()
