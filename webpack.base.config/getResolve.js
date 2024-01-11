@@ -9,8 +9,7 @@ const { appPath } = require('./project-path')
 
 const joinPath = (folder) => join(appPath, folder)
 
-module.exports = () => ({
-    // 扩展名
+module.exports = ({ alias = {} }) => ({
     extensions: [
         '.js',
         '.jsx',
@@ -18,12 +17,5 @@ module.exports = () => ({
         '.tsx',
         '.json',
     ],
-    // 别名
-    alias: {
-        '@': appPath,
-        '@pages': joinPath('pages'),
-        '@components': joinPath('components'),
-        '@fonts': joinPath('css/fonts'),
-        '@framework': joinPath('framework'),
-    },
+    alias,
 })

@@ -5,6 +5,7 @@
  * @time: 2024/1/8
  */
 
+const fs = require('fs-extra')
 const dotenv = require('dotenv')
 const path = require('path')
 const getEntry = require('./getEntry')
@@ -13,9 +14,14 @@ const getResolve = require('./getResolve')
 const getModule = require('./getModule')
 const getPlugins = require('./getPlugins')
 const getOptimization = require('./getOptimization')
-const { rootPath } = require('./project-path')
+const { getProjectConf } = require('../crw-utils')
+const getDevServer = require('./getDevServer')
+const { rootPath, distPath } = require('./project-path')
 
+// 获取.env配置文件
 dotenv.config({ path: path.resolve(rootPath, '.env') })
+
+// 获取project.config.js文件下配置文件
 
 module.exports = (webpackEnv) => {
     const isProductionEnv = webpackEnv === 'production'
@@ -26,7 +32,10 @@ module.exports = (webpackEnv) => {
 
     const devtool = isProductionEnv ? false : 'cheap-module-source-map'
 
-    return {
+    const projectConf = getProjectConf(rootPath)
+    const devServerConf = getDevServer(distPath, projectConf)
+
+    const webpackBaseConf = {
         mode,
         // 在第一个错误出现时抛出失败结果，而不是容忍它。
         bail: isProductionEnv,
@@ -35,9 +44,14 @@ module.exports = (webpackEnv) => {
         entry: getEntry(),
         output: getOutput(isProductionEnv, isDevelopmentEnv),
         devtool,
-        resolve: getResolve(),
+        resolve: getResolve(projectConf),
         module: getModule(isProductionEnv, isDevelopmentEnv),
         plugins: getPlugins(isProductionEnv),
         optimization: getOptimization(isProductionEnv),
+    }
+
+    return {
+        webpackBaseConf,
+        devServerConf,
     }
 }
