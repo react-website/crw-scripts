@@ -4,7 +4,7 @@ module.exports = {
         commonjs: true,
         es2021: true,
     },
-    extends: ['eslint:recommended', 'airbnb'],
+    extends: ['eslint:recommended', 'prettier', 'airbnb'],
     overrides: [
     ],
     parserOptions: {

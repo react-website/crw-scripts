@@ -5,7 +5,6 @@
  * @time: 2023/10/27
  */
 const { resolve } = require('path')
-const path = require('path')
 const fs = require('fs-extra')
 
 const rootPath = fs.realpathSync(process.cwd())
@@ -17,7 +16,7 @@ const extensions = [
     'tsx',
 ]
 
-const resolveApp = (relativePath) => path.resolve(rootPath, relativePath)
+const resolveApp = (relativePath) => resolve(rootPath, relativePath)
 
 // 获取模块路径
 const resolveModule = (resolveFn, filePath) => {
@@ -33,9 +32,9 @@ module.exports = () => {
         proxy: {},
         alias: {},
     }
-    const configPath = path.resolve(rootPath, 'crw.config.js')
+    const configPath = resolve(rootPath, 'crw.config.js')
     if (fs.pathExistsSync(configPath)) {
-        const conf = require(configPath)
+        const conf = require(configPath)()
         projectConf = {
             ...projectConf,
             ...conf,
