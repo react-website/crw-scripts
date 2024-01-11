@@ -73,7 +73,8 @@ module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
                         importLoaders: 3,
                         sourceMap: isProductionEnv,
                         modules: {
-                            mode: 'icss',
+                            mode: 'local',
+                            localIdentName: '[path][local]',
                         },
                     }, 'sass-loader'),
                     sideEffects: true,
