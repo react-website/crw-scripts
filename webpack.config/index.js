@@ -5,10 +5,8 @@
  * @time: 2024/1/8
  */
 
-const fs = require('fs-extra')
 const dotenv = require('dotenv')
 const path = require('path')
-const { entry } = require('babel-plugin-react-css-modules/demo/webpack.config')
 const getEntry = require('./getEntry')
 const getOutput = require('./getOutput')
 const getResolve = require('./getResolve')
