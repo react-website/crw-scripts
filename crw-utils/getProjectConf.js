@@ -4,10 +4,14 @@
  * @author: qq2575896094
  * @time: 2023/10/27
  */
-const { resolve } = require('path')
 const fs = require('fs-extra')
+const dotenv = require('dotenv')
+const { resolve } = require('path')
 
 const rootPath = fs.realpathSync(process.cwd())
+
+// 获取.env配置文件
+dotenv.config({ path: resolve(rootPath, '.env') })
 
 const extensions = [
     'js',
@@ -50,6 +54,7 @@ module.exports = () => {
         rootPath: resolveApp('.'),
         appPath: resolveApp('src'),
         distPath: resolveApp('dist'),
+        swSrc: resolveModule(resolveApp, 'src/service-worker'),
         ...projectConf,
     }
 }

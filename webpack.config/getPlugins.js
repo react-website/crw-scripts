@@ -31,7 +31,7 @@ const getHtmlWebpackPluginOptions = (appHtml) => {
     }
 }
 
-module.exports = (isProductionEnv, appPath, appHtml) => [
+module.exports = (isProductionEnv, appPath, appHtml, swSrc) => [
     new HtmlWebpackPlugin(getHtmlWebpackPluginOptions(appHtml)),
     new EslintWebpackPlugin({
         context: appPath,
@@ -63,7 +63,10 @@ module.exports = (isProductionEnv, appPath, appHtml) => [
             return { files: manifestFiles, entrypoints }
         },
     }),
-    new WorkboxWebpackPlugin.GenerateSW({
+    new WorkboxWebpackPlugin.InjectManifest({
+        swSrc,
+        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/, /\.md/],
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
     }),
     // webpack compiled bar

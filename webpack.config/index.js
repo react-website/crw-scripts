@@ -4,9 +4,6 @@
  * @author: qq2575896094
  * @time: 2024/1/8
  */
-
-const dotenv = require('dotenv')
-const path = require('path')
 const getEntry = require('./getEntry')
 const getOutput = require('./getOutput')
 const getResolve = require('./getResolve')
@@ -23,11 +20,9 @@ const {
     distPath,
     appPath,
     appHtml,
+    swSrc,
     ...projectConf
 } = getProjectConf()
-
-// 获取.env配置文件
-dotenv.config({ path: path.resolve(rootPath, '.env') })
 
 module.exports = (webpackEnv) => {
     const isProductionEnv = webpackEnv === 'production'
@@ -51,7 +46,7 @@ module.exports = (webpackEnv) => {
         devtool,
         resolve: getResolve(projectConf),
         module: getModule(isProductionEnv, isDevelopmentEnv, appPath),
-        plugins: getPlugins(isProductionEnv, appPath, appHtml),
+        plugins: getPlugins(isProductionEnv, appPath, appHtml, swSrc),
         optimization: getOptimization(isProductionEnv),
     }
 
