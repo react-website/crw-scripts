@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const EslintWebpackPlugin = require('eslint-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const Webpackbar = require('webpackbar')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 
@@ -63,19 +64,29 @@ module.exports = (isProductionEnv, appPath, appHtml, swSrc) => [
             return { files: manifestFiles, entrypoints }
         },
     }),
-    new WorkboxWebpackPlugin.InjectManifest({
-        swSrc,
-        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-        exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/, /\.md/],
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-    }),
+    // new WorkboxWebpackPlugin.GenerateSW({
+    //     swSrc,
+    //     dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+    //     exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/, /\.md/],
+    //     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+    // }),
     // webpack compiled bar
     new Webpackbar(),
+
     new StylelintWebpackPlugin({
         files: ['src/**/*.scss'],
         extensions: 'scss',
         failOnError: false,
         threads: true,
         fix: true,
+    }),
+
+    new CopyWebpackPlugin({
+        patterns: [
+            {
+                from: 'docs',
+                to: 'docs',
+            },
+        ],
     }),
 ]

@@ -12,6 +12,7 @@ const getPlugins = require('./getPlugins')
 const getOptimization = require('./getOptimization')
 const { getProjectConf } = require('../crw-utils')
 const getDevServer = require('./getDevServer')
+const getCache = require('./getCache')
 
 // 获取project.config.js文件下配置文件
 const {
@@ -21,6 +22,7 @@ const {
     appPath,
     appHtml,
     swSrc,
+    webpackCache,
     ...projectConf
 } = getProjectConf()
 
@@ -48,6 +50,7 @@ module.exports = (webpackEnv) => {
         module: getModule(isProductionEnv, isDevelopmentEnv, appPath),
         plugins: getPlugins(isProductionEnv, appPath, appHtml, swSrc),
         optimization: getOptimization(isProductionEnv),
+        cache: getCache(webpackCache),
     }
 
     return {

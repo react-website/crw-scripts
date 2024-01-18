@@ -26,10 +26,14 @@ const getStyleLoader = (isProductionEnv, isDevelopmentEnv, appPath, cssOptions, 
                 loader: 'resolve-url-loader',
                 options: {
                     root: appPath,
+                    sourceMap: !isProductionEnv,
                 },
             },
             {
                 loader: preLoader,
+                options: {
+                    sourceMap: true,
+                },
             },
         )
     }

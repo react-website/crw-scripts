@@ -54,6 +54,7 @@ module.exports = () => {
         rootPath: resolveApp('.'),
         appPath: resolveApp('src'),
         distPath: resolveApp('dist'),
+        webpackCache: resolveApp('node_modules/.cache'),
         swSrc: resolveModule(resolveApp, 'src/service-worker'),
         ...projectConf,
     }
