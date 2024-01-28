@@ -4,5 +4,5 @@ const getWebpackConfig = require('../webpack.config')
 const { webpackBaseConf } = getWebpackConfig('production')
 
 webpack(webpackBaseConf).run((err, stats) => {
-    console.error(err, stats)
+    if (err) console.error(err, stats.errors)
 })

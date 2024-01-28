@@ -103,6 +103,10 @@ module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
                             maxSize: IMAGE_INLINE_SIZE_LIMIT,
                         },
                     },
+                    generator: {
+                        publicPath: './static/images/',
+                        outputPath: './static/images',
+                    },
                 },
                 {
                     test: /\.avif/,

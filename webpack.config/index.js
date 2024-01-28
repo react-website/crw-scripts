@@ -50,7 +50,7 @@ module.exports = (webpackEnv) => {
         module: getModule(isProductionEnv, isDevelopmentEnv, appPath),
         plugins: getPlugins(isProductionEnv, appPath, appHtml, swSrc),
         optimization: getOptimization(isProductionEnv),
-        cache: getCache(webpackCache),
+        // cache: getCache(webpackCache),
     }
 
     return {
