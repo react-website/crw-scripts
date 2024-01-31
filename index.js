@@ -38,11 +38,19 @@ const {
 } = getCommand(scripts)
 
 if (scripts.includes(cmd)) {
+    console.log(args, cmd, nodeArgs, scriptInd)
+    let engine = process.execPath
+    let nArgs = args
+    const engineInd = args.findIndex((s) => s === '--engine')
+    if (engineInd !== -1) { // 使用其他引擎
+        engine = args[engineInd + 1]
+        nArgs = [...args.slice(0, engineInd), ...args.slice(engineInd + 2)]
+    }
     const result = spawn.sync(
-        process.execPath,
+        engine,
         nodeArgs
             .concat(require.resolve(`./scripts/${cmd}`))
-            .concat(args.slice((scriptInd + 1))),
+            .concat(nArgs.slice((scriptInd + 1))),
         { stdio: 'inherit' },
     )
 
