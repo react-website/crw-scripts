@@ -104,7 +104,7 @@ module.exports = (isProductionEnv, isDevelopmentEnv, appPath) => ({
                         },
                     },
                     generator: {
-                        publicPath: './static/images/',
+                        publicPath: '/static/images/',
                         outputPath: './static/images',
                     },
                 },

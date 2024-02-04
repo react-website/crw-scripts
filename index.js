@@ -38,7 +38,6 @@ const {
 } = getCommand(scripts)
 
 if (scripts.includes(cmd)) {
-    console.log(args, cmd, nodeArgs, scriptInd)
     let engine = process.execPath
     let nArgs = args
     const engineInd = args.findIndex((s) => s === '--engine')
