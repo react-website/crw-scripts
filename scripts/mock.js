@@ -50,8 +50,9 @@ const router = jsonServer.router(db)
 const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
-server.use(() => {
-
+server.use((req, res, next) => {
+    req.method = 'GET'
+    next()
 })
 server.use('/', (req, res, next) => {
     // 修改请求方式
