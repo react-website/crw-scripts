@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
 const jsonServer = require('json-server')
-const ip = require('ip')
 
 const { getProjectConf } = require('../crw-utils')
 
@@ -66,7 +65,7 @@ server.use((req, res, next) => {
 server.use(router)
 server.use(jsonServer.rewriter(require(path.resolve(mockPath, 'rewriterJSON'))))
 
-const host = ip.address()
+const host = '0.0.0.0'
 const port = 3003
 
 server.listen(
